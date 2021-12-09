@@ -1,0 +1,18 @@
+.header-section {
+  background: linear-gradient(rgb(126, 207, 228), rgb(38, 51, 56));
+
+  padding: 120px;
+  h1.title {
+    font-weight: bold;
+    color: white;
+  }
+}
+
+.add-new-task-box {
+  background: white;
+  padding: 50px;
+  border-radius: 3px;
+  margin-top: -70px;
+
+  box-shadow: 0 4px 12px rgba($color: black, $alpha: 0.3);
+}
