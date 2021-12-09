@@ -1,5 +1,5 @@
 <section class="header-section">
-  <h1 class="title is-1 has-text-centered">To do</h1>
+  <h1 class="title is-1 has-text-centered">Todo App</h1>
 </section>
 <div class="container">
   <div class="add-new-task-box">
@@ -21,3 +21,10 @@
     </form>
   </div>
 </div>
+<section>
+  <div class="container">
+    <div class="task-list">
+      <app-todo-item *ngFor="let task of tasks" [task]="task"></app-todo-item>
+    </div>
+  </div>
+</section>

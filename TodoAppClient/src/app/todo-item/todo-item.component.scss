@@ -1,0 +1,13 @@
+.task-item,
+.checkbox-text {
+  font-size: 1.3em;
+}
+
+.task-item,
+.checkbox-text {
+  padding: 10px;
+}
+
+.task-completed {
+  background: rgba($color: green, $alpha: 0.1);
+}

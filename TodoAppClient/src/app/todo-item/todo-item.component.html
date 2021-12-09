@@ -1,0 +1,20 @@
+<div
+  class="task-item"
+  [ngClass]="task.completed ? 'task-completed' : ''"
+  (click)="onTaskClicked()"
+>
+  <div class="field is-grouped">
+    <p class="control is-expanded">
+      <label class="checkbox">
+        <input type="checkbox" [checked]="task.completed" />
+        <span class="checkbox-text" (click)="$event.stopPropagation()">
+          {{ task.text }}
+        </span>
+      </label>
+    </p>
+
+    <p class="control" (click)="$event.stopPropagation()">
+      <a class="button is-danger" (click)="onDeleteTaskClicked()"> Remove </a>
+    </p>
+  </div>
+</div>

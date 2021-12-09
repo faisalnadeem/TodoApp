@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Todo } from '../shared/models/todo.model';
-import { UserTaskService } from '../shared/services/user-task.service';
+import { Injectable } from '@angular/core';
+import { Todo } from '../models/todo.model';
 
-@Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
+@Injectable({
+  providedIn: 'root',
 })
-export class TodoListComponent implements OnInit {
+export class UserTaskService {
   tasks: Todo[] = [
     new Todo(
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -24,11 +21,17 @@ export class TodoListComponent implements OnInit {
     ),
   ];
 
-  constructor(private userTaskService: UserTaskService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.tasks = this.userTaskService
-      .getAllTasks()
-      .map((obj) => new Todo(obj.text, obj.completed));
+  getAllTasks() {
+    return this.tasks;
+  }
+
+  addTask(todoItem: Todo) {
+    this.tasks.push(todoItem);
+  }
+
+  deleteTodo(todoItem: Todo) {
+    this.tasks.splice(this.tasks.indexOf(todoItem), 1);
   }
 }
