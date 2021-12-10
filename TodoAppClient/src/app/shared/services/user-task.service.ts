@@ -1,37 +1,49 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { catchError, Observable, of, tap } from 'rxjs';
+
 import { Todo } from '../models/todo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserTaskService {
-  tasks: Todo[] = [
-    new Todo(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
-    ),
-    new Todo(
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
-    ),
-    new Todo(
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-      true
-    ),
-    new Todo(
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-    ),
-  ];
+  tasks: Todo[] = [];
 
-  constructor() {}
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+    }),
+  };
 
-  getAllTasks() {
-    return this.tasks;
+  constructor(private http: HttpClient) {}
+
+  todoBaseUrl = 'http://localhost:9486';
+  //todoURl.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  getAllTasks(): Observable<Todo[]> {
+    const getTasksUrl = `${this.todoBaseUrl}/todotasks`;
+    return this.http.get<Todo[]>(getTasksUrl, this.httpOptions);
   }
 
-  addTask(todoItem: Todo) {
-    this.tasks.push(todoItem);
+  log(message: string) {
+    console.log(message);
   }
 
-  deleteTodo(todoItem: Todo) {
-    this.tasks.splice(this.tasks.indexOf(todoItem), 1);
+  addTask(todoItem: Todo): Observable<Todo> {
+    const addTasksUrl = `${this.todoBaseUrl}/todotasks`;
+    return this.http.post<Todo>(addTasksUrl, {
+      text: todoItem.text,
+      completed: todoItem.completed,
+    });
+  }
+
+  updateTask(index: number, updatedTodo: Todo) {
+    this.tasks[index] = updatedTodo;
+  }
+
+  deleteTodo(text: string): Observable<any> {
+    const addTasksUrl = `${this.todoBaseUrl}/todotasks?text=${text}`;
+    console.log(addTasksUrl);
+    return this.http.delete<string>(addTasksUrl);
   }
 }

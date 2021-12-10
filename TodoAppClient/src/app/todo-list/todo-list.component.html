@@ -3,11 +3,13 @@
 </section>
 <div class="container">
   <div class="add-new-task-box">
-    <form>
+    <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
       <h2 class="title is-5">Add new task</h2>
       <div class="field is-grouped">
         <p class="control is-expanded">
           <input
+            ngModel
+            required
             name="todoText"
             class="input"
             type="text"
@@ -24,7 +26,12 @@
 <section>
   <div class="container">
     <div class="task-list">
-      <app-todo-item *ngFor="let task of tasks" [task]="task"></app-todo-item>
+      <app-todo-item
+        *ngFor="let task of tasks"
+        [task]="task"
+        (taskClicked)="toggleTaskCompleted(task)"
+        (deleteTaskClicked)="removeTask(task)"
+      ></app-todo-item>
     </div>
   </div>
 </section>
