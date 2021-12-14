@@ -18,7 +18,7 @@ export class UserTaskService {
 
   constructor(private http: HttpClient) {}
 
-  todoBaseUrl = 'http://localhost:9486';
+  todoBaseUrl = 'https://kay-emm.azurewebsites.net/';
   //todoURl.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
   getAllTasks(): Observable<Todo[]> {
     const getTasksUrl = `${this.todoBaseUrl}/todotasks`;
